@@ -14,9 +14,9 @@ This project analyses two biological assay readouts (confluence and inhibition) 
 - Includes positive and negative controls
 
 ## Objectives
--Assess agreement between two assay readouts
--Identify compounds with assay-specific vs consistent activity
--Evaluate how control variability affects interpretation
+- Assess agreement between two assay readouts
+- Identify compounds with assay-specific vs consistent activity
+- Evaluate how control variability affects interpretation
 
 ## Key Findings
 ### 1. Inconsistent activity classification across assays
