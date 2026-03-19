@@ -51,6 +51,7 @@ Higher variability in inhibition increases the risk of misclassifying compounds 
 
 ## Combining the control and experimental Data
 Visualisations incorporating control distributions highlight overlap between experimental signals and negative controls.
+
 <img src="images/DualAssay_hist.png" width="500">
 
 Scatter plot of confluence vs inhibition with activity thresholds, with quadrant colouring, incorporating the negative control histograms as a shaded bar in the actual plot.
