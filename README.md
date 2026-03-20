@@ -22,11 +22,11 @@ This project analyses two biological assay readouts (confluence and inhibition) 
 
 ## Key Findings
 ### 1. 3 compounds perform very well (>80%) in both readouts:
-•	These are lead candidates
+- •	These are lead candidates
 ### 2. Some compounds perform well in the confluence readout but not the inhibition readout:
-•	This implies that many cells died, but those remaining had normal morphology.
-•	How? 
-o	Further Experiments: test with uninfected cells to see if the compounds themselves reduce cell count without affecting morphology
+- •	This implies that many cells died, but those remaining had normal morphology.
+- •	How? 
+- o	Further Experiments: test with uninfected cells to see if the compounds themselves reduce cell count without affecting morphology
 
 ### 3. Overlap between active compounds and control distributions
 Some compounds classified as active fall within the range of negative controls, particularly in the inhibition assay, suggesting potential false positives.
