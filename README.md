@@ -21,22 +21,38 @@ This project analyses two biological assay readouts (confluence and inhibition) 
 - Look for trends between the two readouts
 
 ## Key Findings
-### 1. Identify the most potent compounds
+### Identified the most potent compounds:
 - 3 compounds perform very well (>80%) in both readouts
 - These are lead candidates
-  
-### 2. Some compounds perform well in the confluence readout but not the inhibition readout:
-- There were less cells, but those remaining had normal cell area.
-- based on the result from 4., this is probably an artefact due the the high variance in the inhibition readout.
-- If we thought this result was real (which I strongly do not), and wanted to find out why: test with uninfected cells to see if the compounds themselves reduce cell count without affecting cell area.
-  
-### 3. Some compounds perform well in the inhibition readout (cell count) but not the confluence readout (cell surface area).
--	The number of cells was the same, but those cells had different cell areas 
--	If we wanted to find out why
-- Further Experiments: test with uninfected cells to determine if these compounds are directly affecting confluence.
-- Further Experiments: test lower concentration and higher concentration, with the virus, 
 
-### 4. Large variance in the control values for the inhibition readout (30-140%). 
+### There is L A R G E variance in the control values for the inhibition readout 
+- the positive control for the inhibition readout has a range of 30-140% 
+- A compound with a readout of 30% may be as effective as the positive control. 
+- - Assuming >30% ≈ 100% adds 4-5 other compounds to our lead candidate list
+- If I was in contact with the people doing the experiment, I'd ask:
+- Is this sort of variance normal for this measurement?
+- Does the raw data specify which 384-well plate each datapoint is from?
+- - if NO: it would be nice to record this information in future experiments, please.
+- - if YES: can I have the data to look for trends between plates (do some plates have significantly higher or lower cell counts? if these trends do occur, explore plate-by-plate normalisation)
+
+### There is weak correlation, but a broad trend exists between the two readouts:
+- As confluence increases, the proportion of compounds with an inhibition readout <20% decreases.
+- Almost all compounds that are inactive in the confluence readout have an inhibition readout <50%.
+- If we can reduce the variance of the inhibition readout the existence of a trend may be more clear
+  
+### Some compounds perform well in the confluence readout but not the inhibition readout:
+- The compounds >80% in the confluence readout range from 20% to >100% in the inhibition readout. the cases of low inhibtion may be artefacts of the high variance in the inhibition readout.
+- If we think some compounds migh actually have high confluence but low inhibition readotus, we could test with uninfected cells to see if the compounds themselves reduce cell count without affecting cell area.
+  
+### Some compounds perform well in the inhibition readout (cell count) but not the confluence readout (cell surface area):
+-	Especially if we consider the low precision fo the inhibition readout - there are 29 compounds with >10% confluence and >20% inhibition
+-	there are many compounds in this range, so if we need to expand our set of lead candidates it would be worth exploring why:
+- test these compounds with uninfected cells to determine if these compounds are directly affecting confluence.
+- test these compounds at higher concentration to see if the confluence improves (implying the virus was still active and was reducing the confluence)
+- test these compounds at lower concentration, to see if the confluence goes down (implying the compound reduces confluence directly at higher concentrations.
+- it could be wort
+
+### Large variance in the control values for the inhibition readout (30-140%). 
 - This implies the results from this readout are less precise. A compound with a readout of 30% may be as effective as the positive control
 - - This adds 4-5 other compounds to our lead candidate list
 - Ask the people doing the experiment: is this sort of variance normal for this measurement?
@@ -44,7 +60,7 @@ This project analyses two biological assay readouts (confluence and inhibition) 
 - Ask the people doing the experiment: 'normalising' the controls was mentioned, how specifically was this done?
 - - if NO: it would be nice to record this information in future experiments
 - - if YES: lets examine this data for trends between plates (do some plates have significantly higher or lower cell counts? if so, can we take this into account or reduce the plate-to-plate variance)
-### 5. There is weak correlation, but a broad trend exists between the two readouts:
+### There is weak correlation, but a broad trend exists between the two readouts:
 - As confluence increases, the proportion of compounds with an inhibition readout <20% decreases.
 - Almost all compounds that are inactive in the confluence readout have an inhibition readout <50%.
 - one compound has very low confluence but high inhibition, which could be worth looking into more
