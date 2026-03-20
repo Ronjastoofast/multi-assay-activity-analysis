@@ -2,10 +2,10 @@
 Dual-assay analysis of EU-OPENSCREEN data to compare biological readouts and identify misleading or assay-specific activity signals
 
 ## Overview
-This project analyses two biological assay readouts (confluence and inhibition) from the EU-OPENSCREEN dataset (EOS300008, https://ecbd.eu/assays/EOS300008#scroll-nav__5) 
+This project analyses two biological assay readouts (confluence and inhibition) from the EU-OPENSCREEN dataset (EOS300008, https://ecbd.eu/assays/EOS300008#scroll-nav__5). I have assumed the point was to develop an antiviral drug, so have analysed the results for this purpose. I havent researched external sources of information (for example, about this type of assay and what factors affect its performance)
 
 ## Dataset
-~2400 compounds tested at 10 µM on cells infected with a virus (which affects cell count by killing and cell morphology by harming cells). Tested in 384 well plates with positive and negative controls on each plate. 
+~2400 compounds tested at 10 µM on cells infected with a virus (which affects cell count and cell area). Tested in 384 well plates with positive and negative controls on each plate. Confluence was considered the main measure of activity.
 
 - Two assay readouts:
   - Confluence (cell area)
@@ -14,23 +14,27 @@ This project analyses two biological assay readouts (confluence and inhibition) 
   - Confluence >10% OR Inhibition >20%
   
 
-## Objectives
+## Objectives (based on logical next steps for this research)
 -	Identify the most potent compounds (perform well in both readouts)
-- Identify other compounds of interest (differ from any trends, perform well in one readout but not the other)
+- Identify other compounds of interest as backup leads, or as starting scaffolds to develop more potent compounds from (activity in one of the two readouts, or moderate activity)
 - Evaluate how control variability affects interpretation
 - Look for trends between the two readouts
 
 ## Key Findings
-### 1. 3 compounds perform very well (>80%) in both readouts:
+### 1. Identify the most potent compounds
+- 3 compounds perform very well (>80%) in both readouts
 - These are lead candidates
+  
 ### 2. Some compounds perform well in the confluence readout but not the inhibition readout:
-- This implies that many cells died, but those remaining had normal morphology.
-- Further Experiments: test with uninfected cells to see if the compounds themselves reduce cell count without affecting morphology
-
+- There were less cells, but those remaining had normal cell area.
+- based on the result from 4., this is probably an artefact due the the high variance in the inhibition readout.
+- If we thought this result was real (which I strongly do not), and wanted to find out why: test with uninfected cells to see if the compounds themselves reduce cell count without affecting cell area.
+  
 ### 3. Some compounds perform well in the inhibition readout (cell count) but not the confluence readout (cell surface area).
--	This implies that the cells did not die but were still harmed
+-	The number of cells was the same, but those cells had different cell areas 
+-	If we wanted to find out why
 - Further Experiments: test with uninfected cells to determine if these compounds are directly affecting confluence.
-- Further Experiments: test higher concentration to determine if compounds are active enough to reduce death but not potent enough to prevent the virus from harming the cells.
+- Further Experiments: test lower concentration and higher concentration, with the virus, 
 
 ### 4. Large variance in the control values for the inhibition readout (30-140%). 
 - This implies the results from this readout are less precise. A compound with a readout of 30% may be as effective as the positive control
