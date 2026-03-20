@@ -2,27 +2,32 @@
 Dual-assay analysis of EU-OPENSCREEN data to compare biological readouts and identify misleading or assay-specific activity signals
 
 ## Overview
-This project analyses two biological assay readouts (confluence and inhibition) from the EU-OPENSCREEN dataset (EOS300008, https://ecbd.eu/assays/EOS300008#scroll-nav__5) to determine whether compound activity is consistent across measurement systems, and to identify potential sources of misleading signal.
+This project analyses two biological assay readouts (confluence and inhibition) from the EU-OPENSCREEN dataset (EOS300008, https://ecbd.eu/assays/EOS300008#scroll-nav__5) 
 
 ## Dataset
-~2400 compounds tested at 10 µM
+~2400 compounds tested at 10 µM on cells infected with a virus (which affects cell count by killing and cell morphology by harming cells). Tested in 384 well plates with positive and negative controls on each plate. 
+
 - Two assay readouts:
   - Confluence (cell area)
   - Inhibition (cell count)
 - Activity defined as:
   - Confluence >10% OR Inhibition >20%
-- Includes positive and negative controls
+  
 
 ## Objectives
-- Assess agreement between two assay readouts
-- Identify compounds with assay-specific vs consistent activity
+-	Identify the most potent compounds (perform well in both readouts)
+- Identify other compounds of interest (differ from any trends, perform well in one readout but not the other)
 - Evaluate how control variability affects interpretation
+- Look for trends between the two readouts
 
 ## Key Findings
-### 1. Inconsistent activity classification across assays
-Compounds labelled as “active” can show low or even negative values in one assay due to the OR-based classification criteria.
-### 2. Significant assay-specific effects
-A large number of compounds are active in only one assay.
+### 1. 3 compounds perform very well (>80%) in both readouts:
+•	These are lead candidates
+### 2. Some compounds perform well in the confluence readout but not the inhibition readout:
+•	This implies that many cells died, but those remaining had normal morphology.
+•	How? 
+o	Further Experiments: test with uninfected cells to see if the compounds themselves reduce cell count without affecting morphology
+
 ### 3. Overlap between active compounds and control distributions
 Some compounds classified as active fall within the range of negative controls, particularly in the inhibition assay, suggesting potential false positives.
 ### 4. Data integrity risk during dataset merging
