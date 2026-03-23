@@ -1,20 +1,14 @@
 # multi-assay-activity-analysis
 
-Dual-assay analysis of EU-OPENSCREEN data to compare biological readouts, identify misleading signals, and guide compound selection decisions.
+Analysis of EU-OPENSCREEN data to compare activity of compounds as measured by two readouts.
 
 ---
 
 ## Overview
-
-This project analyses two biological assay readouts (confluence and inhibition) from the EU-OPENSCREEN dataset (EOS300008):
-
+The dataset is from EU-OPENSCREEN database (EOS300008). The antiviral activity of a set of compounds was measured by two different readouts.
 https://ecbd.eu/assays/EOS300008#scroll-nav__5
 
-The goal is not only to identify active compounds, but to determine:
-- which signals are reliable
-- which are misleading or assay-specific
-- how this affects compound selection and follow-up strategy
-
+The goal is to identify active compounds and look for trends or interesting results.
 ---
 
 ## Dataset
@@ -26,10 +20,10 @@ The goal is not only to identify active compounds, but to determine:
 - 384-well plates with positive and negative controls  
 
 ### Readouts
-- **Confluence** → cell area (morphology)
+- **Confluence** → cell area (damage)
 - **Inhibition** → cell count (survival/growth)
 
-### Activity thresholds (defined concurrently with data generation)
+### Activity thresholds (defined by the people who generated the data)
 - Confluence > 10%  
 - Inhibition > 20%  
 
@@ -37,98 +31,96 @@ The goal is not only to identify active compounds, but to determine:
 
 ## Objectives
 
-- Identify high-confidence lead compounds with consistent activity across both readouts  
-- Identify discordant compounds and determine whether differences reflect biology or assay artefact  
-- Evaluate reliability of each readout and its impact on compound classification  
-- Define decision criteria for prioritising compounds and designing follow-up experiments  
-
+- Identify lead compounds (those with the best activity across both readouts)  
+- Identify trends in the data (does a good confluence correlate with a good inhibition?)
+- look for any interesting results, and suggest ways to investigate them
+- look for any ways to improve the experiment for next time
 ---
 
 ## Key Findings & Decisions
 
-### 1. High-confidence lead compounds
-
-- 3 compounds show >80% activity in both readouts  
-
-**Decision:**  
-- Prioritise these as lead candidates  
-- Suitable for follow-up optimisation and validation  
-
----
-
-### 2. Confluence-active, inhibition-inactive compounds
-
-- High confluence, low inhibition  
+### 1. Some compounds had high inhibition and high confluence
+- 3 compounds show >80% activity in both readouts, so are obvious lead candidate choices
 
 **Interpretation:**  
-- Cells retain morphology but die/fail to grow → compounds likely not preventing cytotoxicity  
-- May reflect assay-specific or indirect effects  
+-	They are the most active compounds! 
 
 **Decision:**  
-- Deprioritise as primary leads  
-- Only pursue if supported by orthogonal assays  
-
-**Follow-up:**  
-- Test in uninfected cells to assess direct cytotoxicity vs antiviral effect  
-- Test at higher concentrations to assess if this reflects a weaker activity
-
+- Replicate the results, test at lower concentrations for more detailed dose response data
+- Carry these compounds forward (more detailed biological assays, tox, pk/pd, etc.)
 ---
-
-### 3. Inhibition-active, confluence-inactive compounds
-
-- High inhibition, low confluence  
-
-**Interpretation:**  
-- Cells survive but remain morphologically damaged  
-- Suggests partial biological effect or insufficient potency  
-
-**Decision:**  
-- Treat as secondary candidates  
-- Potential starting points for optimisation  
-
-**Follow-up:**  
-- Test at higher concentrations  
-- Assess whether increased potency improves confluence  
-- Test in uninfected cells to see if compounds are directly affecting cell morphology
-
----
-
-### 4. Control variability impacts interpretation
-
+### 2. Control variability impacts interpretation
 - Inhibition controls show high variance (30–140%)  
 
 **Interpretation:**  
-- Reduced confidence in inhibition readout  
-- Increased risk of misclassifying compounds near threshold  
+- compounds with apparently low inhibition might still be very active
 
 **Decision:**  
-- Treat inhibition values in the >30% range as uncertain  
-- Expand lead set to include borderline compounds  
+- Treat inhibition values as a traffic light assay, anything in the >30% range is potentially ‘good’  
+- Expand lead set to include borderline compounds 
 
 **Impact:**  
 - Adds ~4–5 additional potential lead compounds  
 
 **Recommended actions:**  
-- Investigate plate-level effects (batch variability)  on inhibition readout
-- Review control normalisation methods  
+- Replicate the results, test at different concentrations for more detailed dose response data
+- If we need the inhibition value to differentiate between good and mediocre compounds:
+- Look into whether this level of variation is normal for this readout
+- If plate-specific data is available, see if plate-to-plate variation in inhibition is responsible for this variation (and if so, test out plate-by-plate normalisation)
 - If repeated experiments are planned:
-  - improve assay robustness  
-  - reduce variance before relying on inhibition readout for decisions  
+  - record plate-specific data (if this wasn’t done already)
+  - try to reduce the variation
+  - consider a different readout instead
+  
+### 3a. Some compounds had high confluence result but not high inhibition
+- Cells retain morphology but die/fail to grow
+
+**Interpretation:**  
+- possible that either the compounds are directly (negatively) affecting growth, or are reducing the impact of the virus on cell area but not cell count
+
+
+**Decision:**  
+- Deprioritise as primary leads  
+- retain as backups in case of issues with lead compounds (toxicity, poor pk/pd)
+- keep structures in mind when designing future antiviral compounds and for SAR from this dataset
+
+**Follow-up:**  
+- If we need more leads or otherwise want to understand this activity:
+- Test in uninfected cells to assess direct cytotoxicity vs antiviral effect  
+- Test at higher concentrations to assess if this reflects a weaker activity
 
 ---
 
-### 5. Relationship between readouts
+### 3b. Some compounds had high inhibition but not high confluence
 
-- Weak overall correlation between confluence and inhibition  
+- cell count is good, but cells morphology is different to the control  
 
 **Interpretation:**  
-- Readouts capture different biological effects  
-- Agreement between them increases confidence  
-- Disagreement highlights potential artefacts or distinct mechanisms  
+- possible that either the compounds are directly (negatively) affecting cell morphology, or are reducing the impact of the virus on cell area but not cell count
+
+**Decision:**  
+- Deprioritise as primary leads, and these compounds are considered less good than compounds with high confluence and low inhibition.
+- retain as backups (to the backups) in case of issues with lead compounds (toxicity, poor pk/pd)
+- keep structures in mind when designing future antiviral compounds, and for SAR from this dataset
+
+**Follow-up:**  
+- If we need more leads or otherwise want to understand this activity:
+- Test in uninfected cells to assess direct cytotoxicity of compounds  
+- Test at higher concentrations to assess if this reflects a weaker activity
+
+---
+
+### 4. Relationship between readouts
+
+- Weak correlation, but there is a general trend where high confluence compounds have higher inhibition (20-125%) and lower confluence compounds tend to have lower inhibition (-50 – 50% and one outlier at ~80%).
+
+**Interpretation:**  
+- the weak correlation could be due to the high variance in the inhibition
+- if some compounds directly affect inhibition or confluence this could also explain the weak relationship.
 
 **Decision:**  
 - Prioritise compounds with consistent signals across both readouts  
-- Use discordant results to guide targeted follow-up experiments  
+- try to reduce inhibition variance in future runs
 
 ---
 
@@ -146,8 +138,8 @@ Scatter plot of confluence vs inhibition with activity thresholds:
 
 Quadrant-coloured scatter plot highlighting:
 - inactive compounds  
-- readout-specific activity  
-- concordant activity  
+- good activity in one readout or the other  
+- good activity in both readouts  
 
 <img src="images/DualAssay_QuadColour.png" width="500">
 
@@ -171,10 +163,6 @@ Quadrant-coloured scatter plot highlighting:
 - Positive controls cluster near 100%  
 - Inhibition shows significantly higher variance  
 
-**Implication:**  
-- Lower precision in inhibition readout  
-- Reduced confidence in marginal activity calls  
-
 ---
 
 ### Combined View
@@ -185,7 +173,7 @@ Overlay of control distributions with experimental data:
 
 ---
 
-Enhanced scatter plot with control distributions embedded:
+Scatter plot with control distributions embedded:
 
 <img src="images/DualAssay_bar.png" width="500">
 
@@ -193,8 +181,8 @@ Enhanced scatter plot with control distributions embedded:
 
 ## Limitations
 
-- No plate-level metadata → cannot assess batch effects  
-- Single measurements per compound → limited statistical confidence  
+- No plate-level metadata, so cannot assess batch effects  
+- Single measurements per compound, so limited statistical confidence  
 - Assay variability reduces reliability of threshold-based classification
 - No control experiments on uninfected cells to differentiate direct effects of the compounds on the cells from their viral inhibition effect
 
@@ -202,18 +190,17 @@ Enhanced scatter plot with control distributions embedded:
 
 ## Key Takeaways
 
-- Not all activity signals are equally reliable  
-- Control variability can directly impact decision-making  
-- Discordant readouts are not noise — they provide insight into mechanism or assay limitations  
-- Structuring experimental data around reliability and interpretation improves compound prioritisation  
+- The confluence data is more reliable than the inhibition data
+- some compounds are active by both measures, and are good leads
+- some compounds are active by only one measure, and might make good backups but should be tested against uninfected cells
 
 ---
 
 ## Next Steps
-
-- Improve assay consistency (especially inhibition readout)  
-- Incorporate replicate measurements to increase confidence  
+  
 - Introduce plate-level metadata to assess batch effects  
-- Develop more robust criteria for defining activity beyond simple thresholds  
+- Replicate the measurements of lead compounds (and backup lead compounds, depending on the per-compound cost of further assays)
+- look into the SAR of the active compounds
+- carry out further testing of lead compounds 
 
 ---
