@@ -195,7 +195,8 @@ Enhanced scatter plot with control distributions embedded:
 
 - No plate-level metadata → cannot assess batch effects  
 - Single measurements per compound → limited statistical confidence  
-- Assay variability reduces reliability of threshold-based classification  
+- Assay variability reduces reliability of threshold-based classification
+- No control experiments on uninfected cells to differentiate direct effects of the compounds on the cells from their viral inhibition effect
 
 ---
 
